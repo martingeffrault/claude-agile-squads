@@ -21,20 +21,20 @@ disable-model-invocation: true
 
 ---
 
-## INFINITE MODE
+## ⚠️ FUNDAMENTAL RULE
 
-> **INFINITE = Only way to stop is Ctrl+C**
+**SQUAD ≠ ONE SINGLE AGENT**
 
-In `infinite` mode:
-- Squad NEVER concludes "we're done"
-- Even at 100%, we look for: optimizations, refactoring, new features, security, tests, DX
-- SM ALWAYS launches next sprint after review
+A squad is:
+1. **Management** (PO + SM + EM) → spawned FIRST
+2. **Tech Leads** → spawned AFTER on EM's request
+
+```
+❌ WRONG: "I spawn @dev-squad"
+✅ RIGHT: "I spawn @product-owner, @scrum-master, @engineering-manager then EM requests Tech Leads"
+```
 
 ---
-
-# FULL AUTONOMY MODE
-
-> The team operates in **total autonomy** with **infinite sprint loops**.
 
 ## You are the CEO/CTO
 
@@ -43,74 +43,54 @@ You **SUPERVISE** and you are the **ONLY ONE who can spawn agents**.
 ### Read first
 - **`.claude/PROJECT.md`** ← Source of truth (state, backlog, velocity)
 - Your project's `CLAUDE.md` (if exists)
-- Understand the codebase structure
 
 ---
 
-## CRITICAL TECHNICAL CONSTRAINT
+## Spawning Constraint
 
-**Sub-agents CANNOT spawn other sub-agents.**
-Only you (CEO/main agent) can use the Task tool to create teammates.
-
-Therefore:
-- The EM CANNOT spawn Tech Leads → they send you "spawn requests"
-- YOU spawn Tech Leads when the EM requests it
-- Tech Leads CODE directly (no Specialist layer)
-
----
-
-## Team Structure
+**Sub-agents CANNOT spawn.**
+Everything goes through you via SPAWN REQUESTS.
 
 ```
-YOU (CEO/CTO - ONLY one who spawns)
-│
-├── @product-owner (Task Agent)
-│   └── Analysis, backlog, priorities, acceptance
-│
-├── @scrum-master (Task Agent)
-│   └── Sprint loop, meetings, facilitation
-│
-├── @engineering-manager (Task Agent)
-│   └── Coordinates, sends SPAWN REQUESTS to CEO
-│
-└── Tech Leads (spawned by YOU on EM's request)
-    ├── @backend-lead → CODES directly
-    ├── @frontend-lead → CODES directly
-    ├── @api-lead → CODES directly
-    └── @[module]-lead → CODES directly (customize as needed)
+EM → SPAWN REQUEST → CEO spawns
 ```
 
 ---
 
-## MODULES (CUSTOMIZE THIS SECTION)
+## COMPLETE FLOW (2 phases)
 
-Define your project's modules here. The PO and EM will use this to organize work.
+### PHASE 1: Management (you spawn immediately)
 
-| Module | Description | Backend Path | Frontend Path |
-|--------|-------------|--------------|---------------|
-| backend | Core backend logic | `src/backend/` or `backend/` | - |
-| frontend | UI components | - | `src/frontend/` or `frontend/` |
-| api | API endpoints | `src/api/` | - |
-| auth | Authentication | `src/auth/` | `src/auth/` |
-| database | Data models | `src/models/` | - |
+```
+CEO spawns PO + SM + EM (3 agents in parallel)
+    │
+    ▼
+PO analyzes → creates backlog → sends to SM
+    │
+    ▼
+SM plans sprint → announces START
+    │
+    ▼
+EM analyzes stories → sends SPAWN REQUESTS
+```
 
-**Customize the paths above to match your project structure.**
+### PHASE 2: Tech Leads (EM requests, you spawn)
+
+```
+EM sends: "SPAWN REQUEST: @backend-lead with stories X,Y,Z"
+    │
+    ▼
+CEO spawns @backend-lead
+    │
+    ▼
+@backend-lead CODES → reports to EM
+```
 
 ---
 
 ## STEP 1: Spawn the 3 management agents
 
-### Spawn these 3 agents IN PARALLEL immediately:
-
-```
-Task tool - Agent 1: @product-owner
-Task tool - Agent 2: @scrum-master
-Task tool - Agent 3: @engineering-manager
-```
-
-### EXACT prompts to use:
-
----
+Spawn these 3 agents IN PARALLEL immediately:
 
 ### Agent 1: Product Owner (@product-owner)
 
@@ -210,7 +190,7 @@ You keep the machine running. In infinite mode, FOREVER.
 ```
 You are the ENGINEERING MANAGER.
 
-## CRITICAL TECHNICAL CONSTRAINT
+## ⚠️ CRITICAL CONSTRAINT
 You CANNOT spawn agents yourself. Only the CEO can spawn.
 Your role: send SPAWN REQUESTS to the CEO.
 
@@ -226,35 +206,31 @@ The Scrum Master will announce the sprint. Wait for their message.
 
 ## WHEN SPRINT STARTS
 1. Analyze sprint stories
-2. Identify which domains are affected:
-   - Backend (API, services, models)
-   - Frontend (components, pages, state)
-   - Database (migrations, queries)
-   - Other modules as defined in the project
+2. Identify which domains are affected
 3. Send CEO a SPAWN REQUEST for each Tech Lead needed
 
-## SPAWN REQUEST FORMAT (send this message to CEO)
-```
+## SPAWN REQUEST FORMAT (send this to CEO)
+
 SPAWN REQUEST:
 Agent: @backend-lead
+Stories: STORY-001, STORY-002
 Prompt: """
 You are the BACKEND TECH LEAD.
 
-Stories to implement this sprint:
-[LIST OF STORIES]
+Stories to implement:
+- STORY-001: [description]
+- STORY-002: [description]
 
-Domain:
-- Path: [relevant paths]
+Paths: backend/, src/services/
 
 You CODE DIRECTLY. No Specialists to spawn.
-Read CLAUDE.md, implement stories, report to EM.
+Read CLAUDE.md, implement stories, report to EM when done.
 """
-```
 
 ## DURING SPRINT
 - Collect updates from Tech Leads
 - Resolve technical blockers
-- Ensure quality (CLAUDE.md patterns if exists)
+- Ensure quality
 
 ## END OF SPRINT
 Send to Scrum Master:
@@ -282,6 +258,7 @@ The EM will send messages like:
 ```
 SPAWN REQUEST:
 Agent: @backend-lead
+Stories: STORY-001, STORY-002
 Prompt: """..."""
 ```
 
@@ -308,52 +285,31 @@ Prompt: """..."""
 
 | Agent | Can spawn? | Can code? | Role |
 |-------|------------|-----------|------|
-| CEO (you) | YES | NO | Spawn on request |
-| PO | NO | NO | Backlog |
-| SM | NO | NO | Facilitates |
-| EM | NO | NO | Sends spawn requests |
-| **Tech Lead** | NO | **YES** | **Codes directly** |
+| CEO (you) | ✅ YES | ❌ | Spawn on request |
+| PO | ❌ | ❌ | Backlog, priorities |
+| SM | ❌ | ❌ | Facilitates sprints |
+| EM | ❌ | ❌ | Coordinates, sends spawn requests |
+| **Tech Lead** | ❌ | ✅ **YES** | **Codes directly** |
 
 ---
 
-## Context Management (anti-overflow)
+## Anti-compression rules
 
-### Between sprints
-- **PO, SM, EM persist** (long-running agents)
-- **Tech Leads re-spawned** each sprint as needed
-
-### Rules
-- **No code in your context** (you CEO)
-- **Short summaries** between agents
-- **Cleanup idle Tech Leads** after each sprint
+The SM must:
+1. REREAD `.claude/skills/squad-dev/SKILL.md` at every sprint
+2. REREAD `.claude/PROJECT.md` sections "Active Session" + "Critical Rules"
+3. Check the mode (infinite/normal)
+4. Apply the mode rules
 
 ---
 
-## If a pitch is provided
+## Startup simplified
 
-**Pitch:** $1 $2 $3 $4 $5 $6 $7 $8 $9
-
-The PO must **prioritize this pitch** in the first sprint.
-After that, they resume autonomy for subsequent sprints.
-
----
-
-# CLASSIC MODE (if $0 != "auto")
-
-If no auto mode, treat "$0 $1 $2..." as a pitch and execute directly.
-
----
-
-# STARTUP CHECKLIST
-
-- [ ] Read project's CLAUDE.md (if exists)
-- [ ] **SPAWN @product-owner** (Task tool)
-- [ ] **SPAWN @scrum-master** (Task tool)
-- [ ] **SPAWN @engineering-manager** (Task tool)
-- [ ] Wait for PO's backlog
-- [ ] Wait for EM's SPAWN REQUESTS
-- [ ] Spawn requested Tech Leads
-- [ ] Supervise
+1. **Spawn @product-owner, @scrum-master, @engineering-manager** (3 agents in parallel)
+2. **Wait for PO's backlog**
+3. **Wait for EM's SPAWN REQUESTS** for Tech Leads
+4. **Spawn the Tech Leads** requested
+5. **Supervise** - Tech Leads code, report to EM, who reports to SM
 
 ---
 
