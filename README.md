@@ -40,18 +40,24 @@ Edit `skills/squad-dev/SKILL.md`:
 
 ### 3. Run
 
+**Two modes available:**
+
+| Mode | Command | What happens |
+|------|---------|--------------|
+| **Auto** | `/squad-dev auto` | Full Agile structure (PO + SM + EM + Tech Leads). PO analyzes codebase, decides what to build. Infinite sprint loop. |
+| **Guided** | `/squad-dev "fix bug"` | No Agile structure. Direct one-shot execution. |
+
 ```bash
-# Launch dev squad in full autonomy mode
-/squad-dev auto
+# AUTO MODE - Full autonomy with Agile structure
+/squad-dev auto                              # PO decides everything
+/squad-dev auto "focus on auth system"       # PO prioritizes this in Sprint 1, then resumes autonomy
 
-# Launch dev squad for specific module
-/squad-dev auto backend
+# GUIDED MODE - Direct execution, no PO/SM/EM
+/squad-dev "fix the login bug"               # Just does the task
 
-# Launch QA squad
-/squad-test auto
-
-# Test specific module
-/squad-test backend
+# QA SQUAD
+/squad-test auto                             # Test entire app
+/squad-test backend                          # Test specific module
 ```
 
 ## Architecture
@@ -147,19 +153,14 @@ Dev squad POs should check `qa/BACKLOG.md` during Sprint Planning.
 2. Add corresponding Tech Lead to the table
 3. Update EM prompt with the new domain
 
-### Changing sprint focus
+### Orienting Sprint 1
 
-Pass a pitch after `auto`:
+In auto mode, you can optionally pass a pitch to orient the first sprint:
 ```bash
 /squad-dev auto "focus on authentication system"
 ```
 
-The PO will prioritize this in Sprint 1.
-
-## Requirements
-
-- Claude Code CLI
-- Chrome + chrome-devtools MCP server (for QA testing)
+The PO will prioritize this pitch in Sprint 1, then resume full autonomy for subsequent sprints.
 
 ## Files
 
