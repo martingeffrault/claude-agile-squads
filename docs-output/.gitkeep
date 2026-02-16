@@ -1,0 +1,10 @@
+# Doc Lead Output Directory
+
+This folder is populated by @doc-lead during squad-all runs.
+
+Structure:
+- api/          - API documentation (OpenAPI, endpoints)
+- guides/       - User guides, tutorials
+- architecture/ - Architecture decisions, diagrams
+
+Note: This is separate from docs/ which contains setup documentation for this toolkit.
