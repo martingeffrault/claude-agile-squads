@@ -14,13 +14,24 @@
 
 A plug-and-play skill pack that gives Claude Code a complete Agile team structure:
 
+- **Program Manager** - Helicopter view, cross-squad coordination, roadmap
 - **Product Owner** - Analyzes codebase, creates backlog, prioritizes features
 - **Scrum Master** - Facilitates sprints, tracks progress, runs ceremonies
 - **Engineering Manager** - Coordinates tech leads, ensures quality
 - **Tech Leads** - Actually write the code
-- **QA Testers** - Test via Chrome, document bugs
+- **QA Analyst + Manager** - Test planning and coordination
+- **Testers** - Test via Chrome, document bugs
+- **Doc Lead** - Technical writing, API docs, guides
 
 All running autonomously with infinite sprint loops.
+
+## Available Squads
+
+| Squad | Command | Description |
+|-------|---------|-------------|
+| **Full Company** | `/squad-all auto` | All squads coordinated by Program Manager |
+| **Dev Only** | `/squad-dev auto` | PO + SM + EM + Tech Leads |
+| **QA Only** | `/squad-test auto` | QA Analyst + Manager + Testers |
 
 ## Quick Start
 
@@ -61,6 +72,31 @@ Edit `skills/squad-dev/SKILL.md`:
 ```
 
 ## Architecture
+
+### Full Company (`/squad-all auto`)
+
+```
+You (CEO/CTO - ONLY one who can spawn agents)
+│
+├── @program-manager
+│   └── Roadmap, cross-squad coordination, releases
+│
+├── DEV SQUAD
+│   ├── @dev-po (backlog)
+│   ├── @dev-sm (sprints)
+│   ├── @dev-em (tech coordination)
+│   └── Tech Leads (code)
+│
+├── QA SQUAD
+│   ├── @qa-analyst (test plans)
+│   ├── @qa-manager (coordination)
+│   └── Testers (test + document)
+│
+└── DOC SQUAD
+    └── @doc-lead (API docs, guides, architecture)
+```
+
+### Dev Only (`/squad-dev auto`)
 
 ```
 You (CEO/CTO - ONLY one who can spawn agents)
@@ -168,17 +204,22 @@ The PO will prioritize this pitch in Sprint 1, then resume full autonomy for sub
 claude-agile-squads/
 ├── README.md                    # This file
 ├── skills/
-│   ├── squad-dev/SKILL.md      # Generic dev squad
-│   └── squad-test/SKILL.md     # QA/Test squad
-├── qa/
-│   ├── BACKLOG.md              # Bug backlog template
+│   ├── squad-all/SKILL.md      # Full company (PM + all squads)
+│   ├── squad-dev/SKILL.md      # Dev squad only
+│   └── squad-test/SKILL.md     # QA/Test squad only
+├── qa/                          # QA outputs
+│   ├── BACKLOG.md              # Bug backlog for dev squads
 │   ├── test-plans/
 │   ├── bug-reports/
 │   ├── test-results/
 │   └── screenshots/
-└── docs/
-    ├── SETUP.md                # Detailed setup guide
-    └── CUSTOMIZATION.md        # How to adapt to your project
+├── docs-output/                 # Doc Lead outputs
+│   ├── api/
+│   ├── guides/
+│   └── architecture/
+└── docs/                        # Setup documentation
+    ├── SETUP.md
+    └── CUSTOMIZATION.md
 ```
 
 ## License
