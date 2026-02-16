@@ -1,21 +1,35 @@
 ---
 name: squad-all
-description: Launch ALL squads orchestrated by a Program Manager. Full company simulation.
-argument-hint: "auto [optional focus area]"
+description: Launch ALL squads orchestrated by a Program Manager. "auto infinite" = NEVER stops.
+argument-hint: "auto [infinite] [optional focus area]"
 disable-model-invocation: true
 ---
 
 # Full Company Squad
 
 **Mode:** $0
-**Focus (optional):** $1 $2 $3 $4 $5 $6 $7 $8 $9
+**Loop:** $1
+**Focus (optional):** $2 $3 $4 $5 $6 $7 $8 $9
 
 ---
 
 ## Mode Detection
 
-**If "$0" == "auto"** → FULL AUTONOMY mode - entire company runs autonomously
+**If "$0" == "auto" AND "$1" == "infinite"** → INFINITE mode - company runs FOREVER (Ctrl+C to stop)
+**If "$0" == "auto"** → FULL AUTONOMY mode - runs until all backlogs empty
 **Otherwise** → Guided mode (focus = "$0 $1 $2...")
+
+---
+
+## INFINITE MODE
+
+> **INFINITE = Only way to stop is Ctrl+C**
+
+In `infinite` mode:
+- Squads NEVER conclude "we're done"
+- Even at 100% completion, find: optimizations, refactoring, new features, security, tests, DX
+- All SMs ALWAYS start next sprint after review
+- Continuous improvement forever
 
 ---
 
@@ -129,9 +143,19 @@ Task tool - Agent: @program-manager
 ```
 You are the PROGRAM MANAGER for this project.
 
+## MODE: $1
+**IF "$1" == "infinite"** → INFINITE MODE - company runs FOREVER
+
 ## CRITICAL TECHNICAL CONSTRAINT
 You CANNOT spawn agents yourself. Only the CEO can spawn.
 Your role: send SPAWN REQUESTS to the CEO.
+
+## IF INFINITE MODE
+In infinite mode, you NEVER conclude "we're done". Even at 100%:
+- Find optimizations, refactoring opportunities
+- Propose new features, security hardening
+- Improve tests, documentation, DX
+- ALWAYS start next sprint cycle
 
 ## YOUR ROLE
 1. Analyze the entire project (structure, modules, state)
@@ -173,9 +197,14 @@ Output: Backlog with user stories and acceptance criteria.
 
 @dev-sm prompt: """
 You are the DEV SCRUM MASTER.
+Mode: Check PROJECT.md > Active Session > Mode (infinite/normal)
 Wait for PO's backlog, run Sprint Planning with EM.
 Track progress, facilitate, run ceremonies.
-Loop sprints indefinitely.
+
+## ANTI-COMPRESSION RULE
+At EVERY sprint start/end: REREAD PROJECT.md > Active Session
+If Mode=infinite: ALWAYS start next sprint, NEVER say "done"
+If Mode=normal: Stop when backlog empty
 """
 
 @dev-em prompt: """

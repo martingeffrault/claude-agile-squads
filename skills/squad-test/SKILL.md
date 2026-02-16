@@ -1,22 +1,37 @@
 ---
 name: squad-test
-description: Launch the QA/Test squad. "auto" = test entire app. With module = test specific module.
-argument-hint: "auto | [module-name]"
+description: Launch the QA/Test squad. "auto" = test entire app, "auto infinite" = continuous testing forever.
+argument-hint: "auto [infinite] | [module-name]"
 disable-model-invocation: true
 ---
 
 # QA/Test Squad
 
 **Mode:** $0
-**Specific module:** $1
+**Loop:** $1
+**Specific module:** $2
 
 ---
 
-## Scope Detection
+## Mode Detection
 
-**If "$0" == "auto" or empty** → Test entire application (smoke test + integration)
+**If "$0" == "auto" AND "$1" == "infinite"** → INFINITE mode - continuous testing forever (Ctrl+C to stop)
+**If "$0" == "auto" or empty** → Test entire application (one pass)
 **If "$0" == "[module-name]"** → Test specific module only
 **If "$0" == "integration"** → Test cross-module flows only
+
+---
+
+## INFINITE MODE
+
+> **INFINITE = Only way to stop is Ctrl+C**
+
+In `infinite` mode:
+- QA squad NEVER concludes "testing done"
+- After each test pass, start another
+- Continuously monitor for regressions
+- Re-test after any dev squad changes
+- QA Manager ALWAYS starts next test cycle
 
 ---
 
@@ -359,12 +374,25 @@ WARNING: You DO NOT CODE. You TEST and DOCUMENT only.
 4. Prioritize bugs (Critical → Trivial)
 5. Assign bugs to appropriate squads in BACKLOG
 
-## END OF SESSION
+## MODE
+Check if "$1" == "infinite" → INFINITE MODE
+- If infinite: After compiling results, ALWAYS start next test cycle
+- Never say "testing complete" - always prepare next round
+- Continuous regression testing
+
+## ⚠️ ANTI-COMPRESSION RULE
+At EVERY test cycle end:
+1. REREAD `.claude/skills/squad-test/SKILL.md` (100% context)
+2. Check if infinite mode
+3. If infinite: "QA Analyst, prepare next test cycle"
+
+## END OF TEST CYCLE
 Send to CEO:
 - Total tests executed
 - Pass rate
 - Critical bugs found
 - Recommendations
+- If infinite: "Starting next test cycle..."
 ```
 
 ---
