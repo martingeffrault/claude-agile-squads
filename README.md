@@ -2,6 +2,14 @@
 
 > Transform Claude Code into a full Agile development team with autonomous sprints.
 
+## Requirements
+
+| Requirement | Why |
+|-------------|-----|
+| **Claude Code Max plan** | Squads consume significant tokens (multiple agents running in parallel). Free/Pro tiers will hit limits quickly. |
+| **Web project** | QA testing uses Chrome DevTools MCP. Adapt for CLI/API projects by removing browser testing. |
+| **Chrome + chrome-devtools MCP** | Required for QA squad browser automation. |
+
 ## What is this?
 
 A plug-and-play skill pack that gives Claude Code a complete Agile team structure:

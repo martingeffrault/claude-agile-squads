@@ -2,9 +2,15 @@
 
 ## Prerequisites
 
-1. **Claude Code CLI** - Install from [claude.ai/code](https://claude.ai/code)
-2. **Chrome** - For QA testing via chrome-devtools MCP
-3. **chrome-devtools MCP server** - For browser automation
+| Requirement | Details |
+|-------------|---------|
+| **Claude Code Max plan** | Required. Squads spawn multiple agents that run in parallel, consuming significant tokens. Free/Pro tiers will hit rate limits quickly and break the flow. |
+| **Claude Code CLI** | Install from [claude.ai/code](https://claude.ai/code) |
+| **Web project** | Current flow is designed for web projects (frontend + backend). QA uses Chrome for browser testing. |
+| **Chrome** | For QA testing via chrome-devtools MCP |
+| **chrome-devtools MCP server** | For browser automation |
+
+> **Note:** This toolkit is optimized for web projects. For CLI tools, APIs without UI, or mobile apps, you'll need to adapt the QA squad (remove Chrome testing, add appropriate testing methods).
 
 ## Installation
 
