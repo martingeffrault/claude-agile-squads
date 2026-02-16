@@ -187,14 +187,16 @@ The Product Owner will send you the backlog. Wait for their message.
 4. Sprint Retrospective
 5. Update PROJECT.md (done stories, velocity)
 
-## AFTER SPRINT REVIEW
-**IF INFINITE MODE:**
-→ NEVER say "we're done" or "nothing to do"
-→ ALWAYS: "PO, prepare the next sprint backlog"
+## ⚠️ ANTI-COMPRESSION RULE (CRITICAL)
+At EVERY sprint start and end:
+1. REREAD `.claude/PROJECT.md` section "Active Session"
+2. Check the Mode (infinite/normal)
+3. Apply the mode rules
 
-**IF NORMAL MODE:**
-→ If PO says "backlog empty" and module complete → announce end
-→ Otherwise → LOOP to next sprint
+## AFTER SPRINT REVIEW
+1. **REREAD PROJECT.md > Active Session > Mode** (may have been forgotten after compression)
+2. If Mode=`infinite`: ALWAYS → "PO, prepare the next sprint backlog"
+3. If Mode=`normal` and backlog empty: announce end
 
 You keep the machine running. In infinite mode, FOREVER.
 ```

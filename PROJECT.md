@@ -5,6 +5,32 @@
 
 ---
 
+## Active Session
+
+> ⚠️ **THIS SECTION IS CRITICAL** - Reread at EVERY sprint, even after context compression.
+
+| Parameter | Value |
+|-----------|-------|
+| **Mode** | `normal` |
+| **Active squad** | - |
+| **Current sprint** | - |
+| **Started** | - |
+
+### Session Rules
+- If `Mode = infinite` → **NEVER** conclude "done". Always start a new sprint.
+- If `Mode = normal` → May conclude when backlog empty and module complete.
+
+### How to update
+When starting a squad:
+```
+Mode: infinite (or normal)
+Active squad: squad-dev (or your squad name)
+Current sprint: Sprint X
+Started: YYYY-MM-DD HH:MM
+```
+
+---
+
 ## État Global
 
 | Module | Completion | Dernier Sprint | Velocity | Status |
@@ -92,24 +118,32 @@
 
 ---
 
-## Instructions pour les Squads
+## Instructions for Squads
 
-### Au démarrage d'un squad
-1. **LIRE ce fichier en premier**
-2. Vérifier l'état du module concerné
-3. Reprendre le backlog existant (ne pas rescanner si déjà analysé)
-4. Créer le sprint à partir du backlog P0/P1
+### When starting a squad
+1. **READ this file first** (especially "Active Session")
+2. **UPDATE "Active Session"** with mode (infinite/normal), squad, date
+3. Check the relevant module state
+4. Resume existing backlog (don't rescan if already analyzed)
+5. Create sprint from P0/P1 backlog
 
-### Pendant le sprint
-1. Mettre à jour le status des stories (To Do → In Progress → Done)
-2. Logger les blocages
+### At EVERY sprint start (IMPORTANT for post-compression survival)
+1. **REREAD the "Active Session" section**
+2. Check the Mode (infinite/normal)
+3. Apply the mode rules
 
-### En fin de sprint
-1. Déplacer les stories Done dans l'historique
-2. Mettre à jour le % completion du module
-3. Mettre à jour la velocity
-4. Préparer le backlog du prochain sprint
+### During sprint
+1. Update story status (To Do → In Progress → Done)
+2. Log blockers
+
+### At sprint end
+1. **REREAD the "Active Session" section** (mode may have been forgotten after compression)
+2. Move Done stories to history
+3. Update module % completion
+4. Update velocity
+5. **IF mode=infinite:** ALWAYS prepare next backlog
+6. **IF mode=normal:** Prepare next backlog OR conclude if complete
 
 ---
 
-*Ce fichier est la source de vérité pour l'état du projet.*
+*This file is the source of truth for project state.*
