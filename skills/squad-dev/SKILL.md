@@ -1,21 +1,34 @@
 ---
 name: squad-dev
-description: Launch the dev squad. Add "auto" for full autonomy mode with infinite sprint loops.
-argument-hint: "auto [optional pitch or module]"
+description: Launch the dev squad. "auto" = sprint loops, "auto infinite" = NEVER stops.
+argument-hint: "auto [infinite] [optional pitch]"
 disable-model-invocation: true
 ---
 
 # Dev Squad
 
 **Mode:** $0
-**Pitch (optional):** $1 $2 $3 $4 $5 $6 $7 $8 $9
+**Loop:** $1
+**Pitch (optional):** $2 $3 $4 $5 $6 $7 $8 $9
 
 ---
 
 ## Mode Detection
 
+**If "$0" == "auto" AND "$1" == "infinite"** → INFINITE mode - NEVER stops
 **If "$0" == "auto"** → FULL AUTONOMY mode with sprint loops
 **Otherwise** → Guided mode (pitch = "$0 $1 $2...")
+
+---
+
+## INFINITE MODE
+
+> **INFINITE = Only way to stop is Ctrl+C**
+
+In `infinite` mode:
+- Squad NEVER concludes "we're done"
+- Even at 100%, we look for: optimizations, refactoring, new features, security, tests, DX
+- SM ALWAYS launches next sprint after review
 
 ---
 
@@ -145,6 +158,9 @@ You decide. No one gives you a pitch.
 ```
 You are the SCRUM MASTER in FULL AUTONOMY mode.
 
+## MODE: $1
+**IF "$1" == "infinite"** → INFINITE MODE ACTIVATED
+
 ## YOUR ROLE
 You facilitate and run sprints. You are the conductor.
 
@@ -169,9 +185,18 @@ The Product Owner will send you the backlog. Wait for their message.
 2. Demo
 3. Verify PO accepts features
 4. Sprint Retrospective
-5. LOOP → Ask PO for next sprint backlog
+5. Update PROJECT.md (done stories, velocity)
 
-You keep the machine running. Indefinitely.
+## AFTER SPRINT REVIEW
+**IF INFINITE MODE:**
+→ NEVER say "we're done" or "nothing to do"
+→ ALWAYS: "PO, prepare the next sprint backlog"
+
+**IF NORMAL MODE:**
+→ If PO says "backlog empty" and module complete → announce end
+→ Otherwise → LOOP to next sprint
+
+You keep the machine running. In infinite mode, FOREVER.
 ```
 
 ---
