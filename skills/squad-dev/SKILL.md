@@ -189,9 +189,10 @@ The Product Owner will send you the backlog. Wait for their message.
 
 ## ⚠️ ANTI-COMPRESSION RULE (CRITICAL)
 At EVERY sprint start and end:
-1. REREAD `.claude/PROJECT.md` section "Active Session"
+1. REREAD `.claude/PROJECT.md` sections "Active Session" AND "Critical Rules"
 2. Check the Mode (infinite/normal)
-3. Apply the mode rules
+3. Check active Tech Leads and blockers
+4. Apply the mode rules
 
 ## AFTER SPRINT REVIEW
 1. **REREAD PROJECT.md > Active Session > Mode** (may have been forgotten after compression)

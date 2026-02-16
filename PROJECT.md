@@ -29,6 +29,62 @@ Current sprint: Sprint X
 Started: YYYY-MM-DD HH:MM
 ```
 
+### Active Tech Leads this sprint
+| Agent | Assigned stories | Status |
+|-------|-----------------|--------|
+| - | - | - |
+
+### Current Blockers
+| Blocker | Since | Owner |
+|---------|-------|-------|
+| - | - | - |
+
+---
+
+## Critical Rules (REREAD after compression)
+
+> ⚠️ These rules are extracted from skills and MUST be respected even after compression.
+
+### Spawning Constraint
+- **ONLY the CEO (main agent) can spawn** agents via Task tool
+- Sub-agents (PO, SM, EM, Tech Leads) **CANNOT** spawn
+- EM sends **SPAWN REQUESTS** to CEO who executes
+
+### Team Structure
+```
+CEO (spawns) → PO + SM + EM (management, persistent)
+CEO (spawns) → Tech Leads (on EM request, re-spawned each sprint)
+```
+
+### SPAWN REQUEST Format (EM → CEO)
+```
+SPAWN REQUEST:
+Agent: @[domain]-lead
+Prompt: """
+You are the [DOMAIN] TECH LEAD.
+Stories: [list]
+Paths: [backend + frontend]
+You CODE DIRECTLY. Report to EM.
+"""
+```
+
+### Sprint Flow
+1. PO → analysis/backlog → CEO
+2. SM → sprint planning → announce start
+3. EM → SPAWN REQUESTS → CEO
+4. CEO → spawns Tech Leads
+5. Tech Leads → code → report to EM
+6. SM → review → loop (if infinite) or end (if normal + complete)
+
+### Roles
+| Agent | Spawns? | Codes? | Main role |
+|-------|---------|--------|-----------|
+| CEO | ✅ | ❌ | Supervise, spawn on request |
+| PO | ❌ | ❌ | Backlog, priorities, acceptance |
+| SM | ❌ | ❌ | Facilitate sprints, track progress |
+| EM | ❌ | ❌ | Coordinate tech, send spawn requests |
+| Tech Lead | ❌ | ✅ | **Code directly**, report to EM |
+
 ---
 
 ## État Global
