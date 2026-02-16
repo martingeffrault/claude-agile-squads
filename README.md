@@ -29,9 +29,11 @@ All running autonomously with infinite sprint loops.
 
 | Squad | Command | Description |
 |-------|---------|-------------|
-| **Full Company** | `/squad-all auto` | All squads coordinated by Program Manager |
-| **Dev Only** | `/squad-dev auto` | PO + SM + EM + Tech Leads |
-| **QA Only** | `/squad-test auto` | QA Analyst + Manager + Testers |
+| **Full Company** | `/squad-all auto [infinite]` | All squads coordinated by Program Manager |
+| **Dev Only** | `/squad-dev auto [infinite]` | PO + SM + EM + Tech Leads |
+| **QA Only** | `/squad-test auto [infinite]` | QA Analyst + Manager + Testers |
+
+> **Infinite mode**: Add `infinite` after `auto` to make sprints loop forever. Without it, squads stop when backlog is empty.
 
 ## Quick Start
 
@@ -51,24 +53,29 @@ Edit `skills/squad-dev/SKILL.md`:
 
 ### 3. Run
 
-**Two modes available:**
+**Three modes available:**
 
 | Mode | Command | What happens |
 |------|---------|--------------|
-| **Auto** | `/squad-dev auto` | Full Agile structure (PO + SM + EM + Tech Leads). PO analyzes codebase, decides what to build. Infinite sprint loop. |
+| **Auto** | `/squad-dev auto` | Full Agile structure (PO + SM + EM + Tech Leads). Sprints loop until backlog empty. |
+| **Auto Infinite** | `/squad-dev auto infinite` | Same as auto, but **NEVER stops**. Even at 100%, finds optimizations, refactoring, new features. Only way to stop: Ctrl+C |
 | **Guided** | `/squad-dev "fix bug"` | No Agile structure. Direct one-shot execution. |
 
 ```bash
-# AUTO MODE - Full autonomy with Agile structure
-/squad-dev auto                              # PO decides everything
-/squad-dev auto "focus on auth system"       # PO prioritizes this in Sprint 1, then resumes autonomy
+# AUTO MODE - Sprints loop until done
+/squad-dev auto                              # PO decides, stops when backlog empty
+/squad-dev auto "focus on auth system"       # PO prioritizes this in Sprint 1
+
+# AUTO INFINITE MODE - Never stops (Ctrl+C to stop)
+/squad-dev auto infinite                     # Runs forever, always finds more work
+/squad-dev auto infinite "start with auth"   # Starts with auth, then continues forever
 
 # GUIDED MODE - Direct execution, no PO/SM/EM
 /squad-dev "fix the login bug"               # Just does the task
 
 # QA SQUAD
 /squad-test auto                             # Test entire app
-/squad-test backend                          # Test specific module
+/squad-test auto infinite                    # Continuous testing forever
 ```
 
 ## Architecture
