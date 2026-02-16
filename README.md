@@ -203,6 +203,7 @@ The PO will prioritize this pitch in Sprint 1, then resume full autonomy for sub
 ```
 claude-agile-squads/
 ├── README.md                    # This file
+├── PROJECT.md                   # Source of truth (state, backlog, velocity)
 ├── skills/
 │   ├── squad-all/SKILL.md      # Full company (PM + all squads)
 │   ├── squad-dev/SKILL.md      # Dev squad only
@@ -221,6 +222,16 @@ claude-agile-squads/
     ├── SETUP.md
     └── CUSTOMIZATION.md
 ```
+
+## Project Tracking
+
+All squads read and update `PROJECT.md`:
+- **State**: % completion per module
+- **Backlog**: Prioritized stories (P0/P1/P2/P3)
+- **Velocity**: SP delivered per sprint
+- **History**: Completed sprints
+
+This prevents full codebase rescans on every squad launch.
 
 ## License
 

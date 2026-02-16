@@ -29,6 +29,7 @@ disable-model-invocation: true
 You **SUPERVISE** and you are the **ONLY ONE who can spawn agents**.
 
 ### Read first
+- **`.claude/PROJECT.md`** ← Source of truth (state, backlog, velocity)
 - Your project's `CLAUDE.md` (if exists)
 - Understand the overall codebase structure
 
@@ -140,10 +141,19 @@ Your role: send SPAWN REQUESTS to the CEO.
 5. Track overall progress
 
 ## FIRST MANDATORY ACTION
-1. Read the project's CLAUDE.md (if exists)
-2. Explore the entire codebase structure
-3. Identify all modules/domains that need work
-4. Assess current state (% complete, gaps, technical debt)
+1. Read `.claude/PROJECT.md` ← **SOURCE OF TRUTH**
+2. Check current state of all modules (%, backlog, velocity)
+3. Read the project's CLAUDE.md (if exists)
+
+## RESUME LOGIC
+**IF PROJECT.md has existing state and backlog:**
+→ DO NOT do a full deep scan
+→ Use existing data (%, backlog, velocity)
+→ Resume from where we left off
+
+**IF PROJECT.md is empty or outdated (>7 days):**
+→ Do a quick scan to validate/update
+→ Update PROJECT.md with new data
 
 ## THEN: Request Squad Spawns
 
